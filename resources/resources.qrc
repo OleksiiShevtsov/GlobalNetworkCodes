@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/icon">
+    <qresource prefix="/">
         <file>png/countries/AD.png</file>
         <file>png/countries/AE.png</file>
         <file>png/countries/AF.png</file>

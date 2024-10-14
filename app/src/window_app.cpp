@@ -5,7 +5,7 @@
 gnc::WindowApp::WindowApp()
 {
     setWindowTitle("Global Network Codes");
-    resize(400, 300);
+    resize(640, 480);
 
     m_operatorModelTree = std::make_unique<OperatorModelTree>(this);
     m_layout = std::make_unique<QVBoxLayout>(this);

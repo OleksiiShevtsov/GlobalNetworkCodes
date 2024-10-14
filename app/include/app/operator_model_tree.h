@@ -4,7 +4,6 @@
 #include "core/db_connector.h"
 
 #include <QTreeWidget>
-#include <memory>
 
 namespace gnc
 {

@@ -28,6 +28,7 @@ gnc::type::QueryResult gnc::DBConnector::selectQuery(const std::string& query)
     }
 
     int columnCount = sqlite3_column_count(stmt);
+    
     while (sqlite3_step(stmt) == SQLITE_ROW)
     {
         std::vector<std::string> row;

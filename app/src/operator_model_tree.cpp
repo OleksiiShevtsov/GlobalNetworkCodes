@@ -1,14 +1,15 @@
 #include "app/operator_model_tree.h"
-#include "app/icon_delegate.h"
+#include "app/styled_delegate_country_operator.h"
+
+#include <QMessageBox>
 
 gnc::OperatorModelTree::OperatorModelTree(QWidget* parent) :
     QTreeWidget(parent)
 {
-    // TODO
     m_db = std::make_shared<DBConnector>("OM system.db");
 
-    IconDelegate* iconDelegate = new IconDelegate(this);
-    this->setItemDelegateForColumn(0, iconDelegate);
+    StyledDelegateCountryOperator* styledDelegateCountryOperator = new StyledDelegateCountryOperator(this);
+    this->setItemDelegateForColumn(0, styledDelegateCountryOperator);
 }
 
 void gnc::OperatorModelTree::loadData()
@@ -25,6 +26,16 @@ void gnc::OperatorModelTree::loadData()
             LEFT JOIN operators
             ON countries.mcc = operators.mcc;
         )";
+
+    try
+    {
+        gnc::type::QueryResult queries = m_db->selectQuery(query);
+    }
+    catch (const std::runtime_error& e)
+    {
+        QMessageBox::critical(nullptr, "database query error!", e.what());
+        return;
+    }
 
     gnc::type::QueryResult queries = m_db->selectQuery(query);
 
@@ -55,23 +66,23 @@ void gnc::OperatorModelTree::showTree()
     {
         QTreeWidgetItem* countryItem = new QTreeWidgetItem(this);
         std::string countryItemText = countryMobile.second.name + " (" + countryMobile.first + ")";
-        std::string countryItemIcon = ":/icons/png/countries/" + countryMobile.first + ".png";
+        std::string countryItemIcon = ":/png/countries/" + countryMobile.first + ".png";
 
         countryItem->setText(0, QString::fromStdString(countryItemText));
         countryItem->setData(0, Qt::UserRole, QString::fromStdString(countryItemIcon));
 
-        /*for(const auto& oper : countryMobile.second.operators)
+        for(const auto& oper : countryMobile.second.operators)
         {
             QTreeWidgetItem* operatorItem = new QTreeWidgetItem(countryItem);
             std::string operatorItemText = oper.name + " (" +
                                             std::to_string(countryMobile.second.mcc) + "-" +
                                             std::to_string(oper.mnc) + ")";
 
-            std::string operatorItemIcon = std::string(":/icons/") + oper.name
+            std::string operatorItemIcon = ":/png/operators/" + std::to_string(countryMobile.second.mcc) + "_" + std::to_string(oper.mnc) + ".png";
 
-            operatorItem->setText(0, operatorItemText.c_str());
-            operatorItem->setData(0, Qt::UserRole, operatorItemIcon);
-        }*/
+            operatorItem->setText(0, QString::fromStdString(operatorItemText));
+            operatorItem->setData(0, Qt::UserRole, QString::fromStdString(operatorItemIcon));
+        }
     }
 
     expandAll();

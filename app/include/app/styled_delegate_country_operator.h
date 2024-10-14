@@ -7,14 +7,17 @@
 
 namespace gnc
 {
-    class IconDelegate : public QStyledItemDelegate
+    enum ItemTypeCategory {
+        Category = 0,
+        Subcategory = 1
+    };
+
+    class StyledDelegateCountryOperator : public QStyledItemDelegate
     {
     public:
-        IconDelegate(QObject* parent = nullptr) : QStyledItemDelegate(parent) {}
+        StyledDelegateCountryOperator(QObject* parent = nullptr) : QStyledItemDelegate(parent) {}
 
         void paint(QPainter* painter, const QStyleOptionViewItem& option,
                    const QModelIndex& index) const override;
-
-        //QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
     };
 }
