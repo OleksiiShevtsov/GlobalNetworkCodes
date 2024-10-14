@@ -6,7 +6,7 @@ set(SQLITE_VERSION "3460100")
 set(ZIP_URL "https://www.sqlite.org/2024/sqlite-amalgamation-${SQLITE_VERSION}.zip")
 set(ZIP_OUTPUT "${SQLITE3_DIRECTORY}/sqlite-amalgamation-${SQLITE_VERSION}.zip")
 
-if(EXISTS ${ZIP_OUTPUT})
+if(EXISTS ${SQLITE3_DIRECTORY}/sqlite-amalgamation-${SQLITE_VERSION}/sqlite3.c)
     message(STATUS "Zip file already exists at ${ZIP_OUTPUT}.")
 else()
     message(STATUS "Downloading zip file from ${ZIP_URL}")

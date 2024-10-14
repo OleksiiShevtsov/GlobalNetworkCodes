@@ -34,6 +34,7 @@
 # CMake
 CMakeFiles/
 CMakeCache.txt
+CMakeLists.txt.user
 cmake_install.cmake
 Makefile
 build/

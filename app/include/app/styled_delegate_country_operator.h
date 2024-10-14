@@ -7,11 +7,6 @@
 
 namespace gnc
 {
-    enum ItemTypeCategory {
-        Category = 0,
-        Subcategory = 1
-    };
-
     class StyledDelegateCountryOperator : public QStyledItemDelegate
     {
     public:
